@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Punch-kun | Ichikawa Zoo</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/monkey-/manifest.json">
     <meta name="theme-color" content="#1e1e2f">
     <meta name="description" content="Punch-kun - The baby macaque who captured hearts worldwide with his beloved orangutan plushie after being abandoned by his mother.">
     <style>
@@ -570,7 +570,7 @@
 
         // Service Worker 登録（スコープ明示）
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js', { scope: '/' })
+            navigator.serviceWorker.register('/monkey-/sw.js', { scope: '/' })
                 .then(reg => console.log('SW registered with scope:', reg.scope))
                 .catch(err => console.log('SW registration failed:', err));
         }
