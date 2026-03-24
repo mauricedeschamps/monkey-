@@ -1,9 +1,9 @@
 const CACHE_NAME = 'punch-kun-v20260324';
 const urlsToCache = [
-  '/index.html?v=20260324',
-  '/manifest.json?v=20260324',
-  '/icon-192.png',
-  '/icon-512.png'
+  'index.html?v=20260324',
+  'manifest.json?v=20260324',
+  'icon-192.png',
+  'icon-512.png'
 ];
 
 // インストール
