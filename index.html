@@ -6,7 +6,7 @@
     <title>Punch-kun | Ichikawa Zoo</title>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#1e1e2f">
-    <meta name="description" content="All about Punch-kun, the famous gorilla at Ichikawa Zoo, featured in The New York Times.">
+    <meta name="description" content="Punch-kun - The baby macaque who captured hearts worldwide with his beloved orangutan plushie after being abandoned by his mother.">
     <style>
         * {
             margin: 0;
@@ -15,44 +15,45 @@
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
         }
 
-        /* Light mode (clear) variables */
+        /* Dark mode (default) */
         :root {
-            --bg-primary: #1e1e2f;
-            --bg-secondary: #2a2a3a;
-            --text-primary: #f0f0f0;
-            --text-secondary: #cccccc;
-            --accent: #ffb347;
-            --accent-hover: #ff9f1a;
-            --card-bg: #2a2a3a;
-            --border: #3a3a4a;
-            --shadow: rgba(0,0,0,0.3);
-            --sponsor-bg: rgba(255, 255, 255, 0.05);
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #eeeeee;
+            --text-secondary: #a0a0a0;
+            --accent: #f39c12;
+            --accent-hover: #e67e22;
+            --card-bg: #0f3460;
+            --border: #2c3e50;
+            --shadow: rgba(0,0,0,0.4);
+            --sponsor-bg: rgba(255,255,255,0.05);
+            --image-placeholder: linear-gradient(135deg, #f39c12, #e67e22);
         }
 
+        /* Light mode */
         body.light {
-            --bg-primary: #f8f9fa;
+            --bg-primary: #fff5eb;
             --bg-secondary: #ffffff;
-            --text-primary: #212529;
-            --text-secondary: #495057;
+            --text-primary: #2c3e2f;
+            --text-secondary: #5a6e5a;
             --accent: #e67e22;
             --accent-hover: #d35400;
             --card-bg: #ffffff;
-            --border: #dee2e6;
-            --shadow: rgba(0,0,0,0.05);
-            --sponsor-bg: rgba(0, 0, 0, 0.02);
+            --border: #f0e0c0;
+            --shadow: rgba(0,0,0,0.08);
+            --sponsor-bg: #fef5e8;
+            --image-placeholder: linear-gradient(135deg, #ffb347, #ff8c42);
         }
 
         body {
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.5;
-            padding: 0;
-            margin: 0;
         }
 
         .container {
-            max-width: 650px;
+            max-width: 700px;
             margin: 0 auto;
             padding: 1rem;
         }
@@ -63,15 +64,20 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.8rem;
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid var(--accent);
+            border-bottom: 3px solid var(--accent);
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         .title {
             font-size: 1.8rem;
             font-weight: bold;
-            background: linear-gradient(135deg, var(--accent), #ff8c42);
+            background: linear-gradient(135deg, var(--accent), #ffb347);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -106,6 +112,36 @@
             border-color: var(--accent);
         }
 
+        /* Hero Image Section */
+        .hero-image {
+            background: var(--image-placeholder);
+            border-radius: 1.5rem;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+        .hero-placeholder {
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .hero-placeholder span {
+            font-size: 4rem;
+            display: block;
+        }
+        /* 実際の画像があればimgタグで置き換え可能 */
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         /* Cards */
         .card {
             background: var(--card-bg);
@@ -120,78 +156,70 @@
             align-items: center;
             gap: 0.5rem;
             font-size: 1.4rem;
-            margin-bottom: 0.8rem;
-            color: var(--accent);
-        }
-        .card h3 {
-            font-size: 1.2rem;
-            margin: 0.8rem 0 0.4rem 0;
+            margin-bottom: 1rem;
             color: var(--accent);
         }
         .info-row {
-            margin: 0.6rem 0;
+            margin: 0.8rem 0;
         }
         .info-label {
             font-weight: 600;
             color: var(--accent);
         }
-        .topic-list {
-            list-style: none;
-            margin-top: 0.5rem;
+
+        /* Topic Buttons (Image Style) */
+        .topic-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1rem 0;
         }
-        .topic-list li {
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px dashed var(--border);
+        .topic-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 1.2rem;
+            padding: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        .topic-btn:hover {
+            transform: translateX(5px);
+            border-color: var(--accent);
+            background: var(--card-bg);
+        }
+        .topic-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--image-placeholder);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        .topic-content {
+            flex: 1;
         }
         .topic-title {
             font-weight: bold;
             font-size: 1.1rem;
+            margin-bottom: 0.2rem;
         }
         .topic-desc {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin: 0.2rem 0 0.5rem 0;
-        }
-        .btn-link {
-            display: inline-block;
-            background: var(--accent);
-            color: #1e1e2f;
-            padding: 0.3rem 1rem;
-            border-radius: 2rem;
-            text-decoration: none;
             font-size: 0.8rem;
-            font-weight: 500;
-            margin-top: 0.3rem;
-        }
-        .btn-link:hover {
-            background: var(--accent-hover);
-        }
-        a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        footer {
-            text-align: center;
-            margin-top: 2rem;
-            font-size: 0.75rem;
             color: var(--text-secondary);
-            border-top: 1px solid var(--border);
-            padding-top: 1rem;
         }
-        .badge {
-            display: inline-block;
-            background: var(--accent);
-            color: #1e1e2f;
-            font-size: 0.7rem;
-            border-radius: 1rem;
-            padding: 0.2rem 0.6rem;
-            margin-left: 0.5rem;
-            vertical-align: middle;
+        .topic-arrow {
+            font-size: 1.2rem;
+            color: var(--accent);
         }
+
         /* Sponsor styles */
         .sponsor {
             background: var(--sponsor-bg);
@@ -216,6 +244,39 @@
             align-items: center;
             justify-content: center;
         }
+
+        /* Stats Badge */
+        .stats {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+            background: var(--bg-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+        }
+        .stat-number {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+        }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
         @media (max-width: 480px) {
             .container {
                 padding: 0.8rem;
@@ -223,13 +284,20 @@
             .title {
                 font-size: 1.4rem;
             }
+            .topic-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="title">🐵 Punch-kun</div>
+            <div class="logo-area">
+                <div class="title">🐒 Punch-kun</div>
+            </div>
             <div class="controls">
                 <div class="lang-buttons">
                     <button data-lang="en" class="lang-btn active">EN</button>
@@ -240,13 +308,21 @@
             </div>
         </div>
 
+        <!-- ヒーローイメージ枠 -->
+        <div class="hero-image" id="heroImage">
+            <div class="hero-placeholder">
+                <span>🐵🧸</span>
+                <p id="heroCaption">Punch & Ora-mama</p>
+            </div>
+        </div>
+
         <!-- スポンサー枠: メイン上部 -->
         <div class="sponsor" id="sponsor-top-main">
             <div class="sponsor-label">Sponsor</div>
             <div class="sponsor-placeholder">[ 広告スペース ]</div>
         </div>
 
-        <!-- 動的コンテンツ挿入エリア -->
+        <!-- 動的コンテンツ -->
         <div id="app-content"></div>
 
         <!-- スポンサー枠: メイン下部 -->
@@ -256,97 +332,114 @@
         </div>
 
         <footer>
-            <p>© Ichikawa Zoo | <a href="https://www.city.ichikawa.lg.jp/zoo/" target="_blank" rel="noopener noreferrer">Official Website</a></p>
+            <p>© Ichikawa Zoo | <a href="https://www.city.ichikawa.lg.jp/zoo/" target="_blank">Official Website</a> | #HangInTherePunch</p>
         </footer>
     </div>
 
     <script>
-        // ==================== 多言語テキスト ====================
+        // ==================== 多言語テキスト（パンチくん情報を全面修正） ====================
         const translations = {
             en: {
+                heroCaption: "Punch & Ora-mama (IKEA Orangutan)",
                 zooLocation: "Zoo Location",
                 locationAddr: "Ichikawa Zoo, 3-1-2 Yawata, Ichikawa-shi, Chiba 272-0021, Japan",
                 access: "Access",
-                accessDetail: "From Tokyo Station: JR Sobu Line Rapid (15 min) to Ichikawa Station, then 10 min walk. Also from Shinjuku/Shibuya via JR lines.",
+                accessDetail: "From Tokyo Station: JR Sobu Line Rapid (15 min) to Ichikawa Station, then 10 min walk.",
                 tokyoInfo: "Tokyo Essentials",
-                tokyoDesc: "Tokyo is just 20-30 minutes away. Enjoy shopping, cuisine, and culture. The zoo is easily accessible from central Tokyo.",
+                tokyoDesc: "Tokyo is just 20-30 minutes away. A perfect day trip to see Punch-kun!",
                 punchProfile: "About Punch-kun",
-                profileText: "Punch-kun is a male Western lowland gorilla born in 1996. He became internationally famous after The New York Times featured his gentle personality and the zoo's unique enrichment activities.",
-                topics: "Topics & Details",
-                topic1Title: "Punch-kun's Daily Life",
-                topic1Desc: "Learn about his favorite foods, daily routines, and how the keepers care for him.",
+                profileText: "Punch is a Japanese macaque born on July 26, 2025. After being abandoned by his mother, zookeepers stepped in to hand-raise him. He found comfort in an IKEA orangutan plushie, which he carries everywhere. His story went viral with #HangInTherePunch, and visitors now flock to Ichikawa Zoo to see this heartwarming duo.",
+                stats: "Quick Facts",
+                birth: "Birth: July 26, 2025",
+                species: "Species: Japanese Macaque (Nihonzaru)",
+                plushie: "Companion: IKEA Djungelskog 'Ora-mama'",
+                topics: "Discover Punch's Story",
+                topic1Title: "🐣 Abandoned & Rescued",
+                topic1Desc: "Born in summer heat, his mother showed no care. Keepers began artificial feeding the next day.",
                 topic1Link: "https://www.city.ichikawa.lg.jp/zoo/guide/punch.html",
-                topic2Title: "Keeper's Message",
-                topic2Desc: "Read heartfelt messages from the zoo staff who work closely with Punch-kun.",
+                topic2Title: "🧸 Ora-mama the Plushie",
+                topic2Desc: "Why an IKEA orangutan? It's easy to grip and looks like a monkey. IKEA Japan donated many plushies!",
                 topic2Link: "https://www.city.ichikawa.lg.jp/zoo/news/",
-                topic3Title: "Enrichment Activities",
-                topic3Desc: "Discover the special toys and activities that keep Punch-kun mentally stimulated.",
+                topic3Title: "🐒 Growing Up in the Troop",
+                topic3Desc: "Punch is learning monkey society—sometimes scolded, but showing resilience. He's making friends!",
                 topic3Link: "https://www.city.ichikawa.lg.jp/zoo/enrichment/",
-                topic4Title: "Visit Tips",
-                topic4Desc: "Best times to see Punch-kun active, feeding times, and zoo etiquette.",
-                topic4Link: "https://www.city.ichikawa.lg.jp/zoo/visit/",
-                moreInfo: "More Details",
+                topic4Title: "❤️ #HangInTherePunch",
+                topic4Desc: "Global fans send support. The zoo posts daily updates on X (Twitter). Join the movement!",
+                topic4Link: "https://x.com/ichikawa_zoo",
+                moreInfo: "Learn More",
                 officialSite: "Official Zoo Website",
-                otherInfo: "Ichikawa Zoo is home to over 50 species. Punch-kun is the star, but you'll also meet red pandas, penguins, and more."
+                otherInfo: "Ichikawa Zoo is home to over 50 species. Punch is the star, but you'll also meet red pandas, penguins, and more.",
+                ikeaNote: "📦 IKEA donated plush toys to support Punch!"
             },
             ja: {
+                heroCaption: "パンチくんとおらまま（IKEAオランウータン）",
                 zooLocation: "動物園の場所",
                 locationAddr: "市川動物園 〒272-0021 千葉県市川市八幡3-1-2",
                 access: "アクセス",
-                accessDetail: "東京駅からJR総武線快速で約15分、市川駅下車徒歩10分。新宿・渋谷からもJR線でアクセス便利。",
+                accessDetail: "東京駅からJR総武線快速で約15分、市川駅下車徒歩10分。",
                 tokyoInfo: "東京情報",
-                tokyoDesc: "都心から20～30分。ショッピングやグルメ、文化を楽しんだ後、動物園へ気軽に立ち寄れます。",
+                tokyoDesc: "都心から20～30分。パンチくんに会いに日帰り旅行にぴったり！",
                 punchProfile: "パンチくんについて",
-                profileText: "パンチくんは1996年生まれのニシローランドゴリラのオス。ニューヨークタイムズでその穏やかな性格と飼育員の取り組みが紹介され、世界的に注目されました。",
-                topics: "トピック＆詳細",
-                topic1Title: "パンチくんの1日",
-                topic1Desc: "好きな食べ物、毎日のスケジュール、飼育員によるケアについて詳しく紹介。",
+                profileText: "パンチくんは2025年7月26日生まれのニホンザルの赤ちゃん。母親に育児放棄され、飼育員が人工哺育で育てました。IKEAのオランウータンのぬいぐるみをおらままと呼び、いつも寄り添っています。#がんばれパンチくん で話題になり、多くの人が会いに訪れています。",
+                stats: "基本データ",
+                birth: "誕生日: 2025年7月26日",
+                species: "種類: ニホンザル",
+                plushie: "相棒: IKEAのぬいぐるみ 'おらまま'",
+                topics: "パンチくんの物語",
+                topic1Title: "🐣 育児放棄と救出",
+                topic1Desc: "猛暑の夏に誕生。母親が育てず、翌日から飼育員が人工哺育を開始。",
                 topic1Link: "https://www.city.ichikawa.lg.jp/zoo/guide/punch.html",
-                topic2Title: "飼育員からのメッセージ",
-                topic2Desc: "パンチくんと日々接する飼育員の温かいメッセージを公開。",
+                topic2Title: "🧸 おらまま（ぬいぐるみ）",
+                topic2Desc: "なぜIKEAのオランウータン？ 掴みやすく、サルに似ているから。IKEAジャパンがぬいぐるみを寄贈！",
                 topic2Link: "https://www.city.ichikawa.lg.jp/zoo/news/",
-                topic3Title: "環境エンリッチメント",
-                topic3Desc: "パンチくんの知性を刺激する特別なおもちゃや活動をご紹介。",
+                topic3Title: "🐒 サル社会での成長",
+                topic3Desc: "時には叱られながらも、たくましく成長中。少しずつお友達も増えています。",
                 topic3Link: "https://www.city.ichikawa.lg.jp/zoo/enrichment/",
-                topic4Title: "見学のコツ",
-                topic4Desc: "活発に動く時間帯、給餌時間、マナーなど。",
-                topic4Link: "https://www.city.ichikawa.lg.jp/zoo/visit/",
+                topic4Title: "❤️ #がんばれパンチくん",
+                topic4Desc: "世界中から応援が届いています。動物園のXで毎日更新中！",
+                topic4Link: "https://x.com/ichikawa_zoo",
                 moreInfo: "詳しく見る",
                 officialSite: "公式ホームページ",
-                otherInfo: "市川動物園には50種以上の動物がいます。パンチくんがスターですが、レッサーパンダやペンギンにも会えます。"
+                otherInfo: "市川動物園には50種以上の動物がいます。パンチくんがスターですが、レッサーパンダやペンギンにも会えます。",
+                ikeaNote: "📦 IKEAジャパンがぬいぐるみを寄贈！"
             },
             zh: {
+                heroCaption: "Punch君与Ora-mama（IKEA红毛猩猩玩偶）",
                 zooLocation: "动物园位置",
                 locationAddr: "市川动物园 〒272-0021 日本千叶县市川市八幡3-1-2",
                 access: "交通信息",
-                accessDetail: "从东京站乘坐JR总武线快速约15分钟，在市川站下车步行10分钟。从新宿、涩谷乘坐JR线也很方便。",
+                accessDetail: "从东京站乘坐JR总武线快速约15分钟，在市川站下车步行10分钟。",
                 tokyoInfo: "东京简介",
-                tokyoDesc: "距离东京市中心仅20-30分钟。购物、美食、文化之后，轻松前往动物园。",
+                tokyoDesc: "距离东京市中心仅20-30分钟。一日游看Punch君的最佳选择！",
                 punchProfile: "关于Punch君",
-                profileText: "Punch君是一只1996年出生的西部低地大猩猩雄性。因《纽约时报》介绍了其温和的性格和饲养员的努力而受到全球关注。",
-                topics: "专题与详情",
-                topic1Title: "Punch君的日常生活",
-                topic1Desc: "了解他喜欢的食物、日常作息以及饲养员的照顾方式。",
+                profileText: "Punch君是2025年7月26日出生的日本猴宝宝。因被母亲弃养，饲养员开始人工喂养。他依偎着IKEA红毛猩猩玩偶，将其称为'Ora-mama'。#Punch加油 成为热门话题，许多人专程前来探望。",
+                stats: "基本信息",
+                birth: "生日: 2025年7月26日",
+                species: "种类: 日本猴",
+                plushie: "伙伴: IKEA玩偶 'Ora-mama'",
+                topics: "Punch君的故事",
+                topic1Title: "🐣 被弃养与救援",
+                topic1Desc: "在盛夏出生。母亲未予照料，饲养员次日开始人工哺育。",
                 topic1Link: "https://www.city.ichikawa.lg.jp/zoo/guide/punch.html",
-                topic2Title: "饲养员寄语",
-                topic2Desc: "阅读与Punch君朝夕相处的饲养员的真挚寄语。",
+                topic2Title: "🧸 Ora-mama玩偶",
+                topic2Desc: "为什么选IKEA红毛猩猩？因为它容易抓握、长得像猴子。IKEA日本捐赠了许多玩偶！",
                 topic2Link: "https://www.city.ichikawa.lg.jp/zoo/news/",
-                topic3Title: "环境丰富化活动",
-                topic3Desc: "介绍刺激Punch君智力的特殊玩具和活动。",
+                topic3Title: "🐒 在猴群中成长",
+                topic3Desc: "虽然有时会被责骂，但Punch君坚强地成长着，正在结交朋友。",
                 topic3Link: "https://www.city.ichikawa.lg.jp/zoo/enrichment/",
-                topic4Title: "参观小贴士",
-                topic4Desc: "Punch君最活跃的时间、喂食时间以及参观礼仪。",
-                topic4Link: "https://www.city.ichikawa.lg.jp/zoo/visit/",
+                topic4Title: "❤️ #Punch加油",
+                topic4Desc: "全球粉丝送来支持。动物园在X上每日更新！",
+                topic4Link: "https://x.com/ichikawa_zoo",
                 moreInfo: "了解更多",
                 officialSite: "官方网站",
-                otherInfo: "市川动物园拥有50多种动物。Punch君是明星，但您还可以看到小熊猫、企鹅等。"
+                otherInfo: "市川动物园拥有50多种动物。Punch君是明星，您还可以看到小熊猫、企鹅等。",
+                ikeaNote: "📦 IKEA日本捐赠了玩偶支援Punch君！"
             }
         };
 
         let currentLang = 'en';
-        let isDark = true; // default dark mode
+        let isDark = true;
 
-        // テーマ切り替え
         function setTheme(theme) {
             if (theme === 'light') {
                 document.body.classList.add('light');
@@ -359,28 +452,26 @@
         }
 
         function toggleTheme() {
-            if (isDark) {
-                setTheme('light');
-            } else {
-                setTheme('dark');
-            }
+            setTheme(isDark ? 'light' : 'dark');
         }
 
-        // 言語切り替え
         function setLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('lang', lang);
             document.querySelectorAll('.lang-btn').forEach(btn => {
-                if (btn.dataset.lang === lang) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
+                btn.classList.toggle('active', btn.dataset.lang === lang);
             });
             renderContent();
+            updateHeroCaption();
         }
 
-        // コンテンツ描画（スポンサー枠も含む）
+        function updateHeroCaption() {
+            const captionEl = document.getElementById('heroCaption');
+            if (captionEl) {
+                captionEl.textContent = translations[currentLang].heroCaption;
+            }
+        }
+
         function renderContent() {
             const t = translations[currentLang];
             const container = document.getElementById('app-content');
@@ -401,40 +492,59 @@
                 <div class="card">
                     <h2>🦍 ${t.punchProfile}</h2>
                     <p>${t.profileText}</p>
+                    <div class="stats">
+                        <div class="stat-item"><div class="stat-number">🎂</div><div>${t.birth}</div></div>
+                        <div class="stat-item"><div class="stat-number">🐵</div><div>${t.species}</div></div>
+                        <div class="stat-item"><div class="stat-number">🧸</div><div>${t.plushie}</div></div>
+                    </div>
+                    <p style="font-size:0.85rem; margin-top:0.5rem;">✨ ${t.ikeaNote}</p>
                 </div>
 
                 <div class="card">
-                    <h2>📌 ${t.topics}</h2>
-                    <!-- 詳細ページ上部のスポンサー枠 -->
+                    <h2>📖 ${t.topics}</h2>
+                    <!-- 詳細ページ上部スポンサー -->
                     <div class="sponsor" id="sponsor-top-detail">
                         <div class="sponsor-label">Sponsor</div>
                         <div class="sponsor-placeholder">[ 広告スペース ]</div>
                     </div>
 
-                    <ul class="topic-list">
-                        <li>
-                            <div class="topic-title">${t.topic1Title}</div>
-                            <div class="topic-desc">${t.topic1Desc}</div>
-                            <a href="${t.topic1Link}" class="btn-link" target="_blank" rel="noopener noreferrer">${t.moreInfo} →</a>
-                        </li>
-                        <li>
-                            <div class="topic-title">${t.topic2Title}</div>
-                            <div class="topic-desc">${t.topic2Desc}</div>
-                            <a href="${t.topic2Link}" class="btn-link" target="_blank" rel="noopener noreferrer">${t.moreInfo} →</a>
-                        </li>
-                        <li>
-                            <div class="topic-title">${t.topic3Title}</div>
-                            <div class="topic-desc">${t.topic3Desc}</div>
-                            <a href="${t.topic3Link}" class="btn-link" target="_blank" rel="noopener noreferrer">${t.moreInfo} →</a>
-                        </li>
-                        <li>
-                            <div class="topic-title">${t.topic4Title}</div>
-                            <div class="topic-desc">${t.topic4Desc}</div>
-                            <a href="${t.topic4Link}" class="btn-link" target="_blank" rel="noopener noreferrer">${t.moreInfo} →</a>
-                        </li>
-                    </ul>
+                    <!-- イメージボタン形式のトピック一覧 -->
+                    <div class="topic-grid">
+                        <a href="${t.topic1Link}" class="topic-btn" target="_blank" rel="noopener noreferrer">
+                            <div class="topic-icon">🐣</div>
+                            <div class="topic-content">
+                                <div class="topic-title">${t.topic1Title}</div>
+                                <div class="topic-desc">${t.topic1Desc}</div>
+                            </div>
+                            <div class="topic-arrow">→</div>
+                        </a>
+                        <a href="${t.topic2Link}" class="topic-btn" target="_blank" rel="noopener noreferrer">
+                            <div class="topic-icon">🧸</div>
+                            <div class="topic-content">
+                                <div class="topic-title">${t.topic2Title}</div>
+                                <div class="topic-desc">${t.topic2Desc}</div>
+                            </div>
+                            <div class="topic-arrow">→</div>
+                        </a>
+                        <a href="${t.topic3Link}" class="topic-btn" target="_blank" rel="noopener noreferrer">
+                            <div class="topic-icon">🐒</div>
+                            <div class="topic-content">
+                                <div class="topic-title">${t.topic3Title}</div>
+                                <div class="topic-desc">${t.topic3Desc}</div>
+                            </div>
+                            <div class="topic-arrow">→</div>
+                        </a>
+                        <a href="${t.topic4Link}" class="topic-btn" target="_blank" rel="noopener noreferrer">
+                            <div class="topic-icon">❤️</div>
+                            <div class="topic-content">
+                                <div class="topic-title">${t.topic4Title}</div>
+                                <div class="topic-desc">${t.topic4Desc}</div>
+                            </div>
+                            <div class="topic-arrow">→</div>
+                        </a>
+                    </div>
 
-                    <!-- 詳細ページ下部のスポンサー枠 -->
+                    <!-- 詳細ページ下部スポンサー -->
                     <div class="sponsor" id="sponsor-bottom-detail">
                         <div class="sponsor-label">Sponsor</div>
                         <div class="sponsor-placeholder">[ 広告スペース ]</div>
@@ -444,40 +554,26 @@
                 <div class="card">
                     <h2>🌐 ${t.officialSite}</h2>
                     <p>${t.otherInfo}</p>
-                    <p><a href="https://www.city.ichikawa.lg.jp/zoo/" target="_blank" rel="noopener noreferrer">https://www.city.ichikawa.lg.jp/zoo/</a></p>
+                    <p><a href="https://www.city.ichikawa.lg.jp/zoo/" target="_blank">https://www.city.ichikawa.lg.jp/zoo/</a></p>
                 </div>
             `;
         }
 
-        // 初期化
         function init() {
-            // テーマ
             const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'light') {
-                setTheme('light');
-            } else {
-                setTheme('dark');
-            }
-            // 言語
+            setTheme(savedTheme === 'light' ? 'light' : 'dark');
+            
             const savedLang = localStorage.getItem('lang');
-            if (savedLang && translations[savedLang]) {
-                setLanguage(savedLang);
-            } else {
-                setLanguage('en');
-            }
-            // イベントリスナー
+            setLanguage(translations[savedLang] ? savedLang : 'en');
+
             document.getElementById('themeToggle').addEventListener('click', toggleTheme);
             document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    setLanguage(btn.dataset.lang);
-                });
+                btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
             });
         }
 
-        // PWA Service Worker 登録
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js')
-                .then(reg => console.log('SW registered:', reg))
                 .catch(err => console.log('SW registration failed:', err));
         }
 
