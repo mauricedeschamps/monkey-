@@ -1,9 +1,10 @@
 const CACHE_NAME = 'punch-kun-v3';
 const urlsToCache = [
-  'index.html',
-  'manifest.json',
-  'icon-192.png',
-  'icon-512.png'
+ '/monkey-/',
+ '/monkey-/index.html',
+  '/monkey-/manifest.json',
+  '/monkey-/icon-192.png',
+  '/monkey-/icon-512.png'
 ];
 
 self.addEventListener('install', event => {
