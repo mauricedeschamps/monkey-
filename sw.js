@@ -1,21 +1,20 @@
-const CACHE_NAME = 'punch-kun-v1';
+const CACHE_NAME = 'punch-kun-v2';
 const urlsToCache = [
   '/',
-  'index.html',
-  'manifest.json',
-  'icon-192.png',
-  'icon-512.png'
+  '/index.html',
+  '/manifest.json',
+  '/icon-192.png',
+  '/icon-512.png'
 ];
 
-// インストール時にキャッシュ
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(urlsToCache))
   );
+  self.skipWaiting(); // 新しいSWを即時有効化
 });
 
-// フェッチ時にキャッシュ優先、次にネットワーク
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
@@ -39,7 +38,6 @@ self.addEventListener('fetch', event => {
   );
 });
 
-// 古いキャッシュの削除
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -52,4 +50,5 @@ self.addEventListener('activate', event => {
       );
     })
   );
+  event.waitUntil(clients.claim()); // 即座にすべてのクライアントを制御
 });
