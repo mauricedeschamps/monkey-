@@ -1,6 +1,5 @@
 const CACHE_NAME = 'punch-kun-v3';
 const urlsToCache = [
-  '/',
   'index.html',
   'manifest.json',
   'icon-192.png',
