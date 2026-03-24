@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Punch-kun | Ichikawa Zoo</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#1e1e2f">
     <meta name="description" content="Punch-kun - The baby macaque who captured hearts worldwide with his beloved orangutan plushie after being abandoned by his mother.">
     <style>
+        /* 前回と同じスタイル（省略） */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
         }
-
-        /* Dark mode (default) */
         :root {
             --bg-primary: #1a1a2e;
             --bg-secondary: #16213e;
@@ -28,8 +27,6 @@
             --shadow: rgba(0,0,0,0.4);
             --sponsor-bg: rgba(255,255,255,0.05);
         }
-
-        /* Light mode */
         body.light {
             --bg-primary: #fff5eb;
             --bg-secondary: #ffffff;
@@ -42,21 +39,17 @@
             --shadow: rgba(0,0,0,0.08);
             --sponsor-bg: #fef5e8;
         }
-
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.5;
         }
-
         .container {
             max-width: 700px;
             margin: 0 auto;
             padding: 1rem;
         }
-
-        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -83,6 +76,7 @@
         .controls {
             display: flex;
             gap: 0.5rem;
+            flex-wrap: wrap;
         }
         button {
             background: var(--bg-secondary);
@@ -109,8 +103,6 @@
             color: #1e1e2f;
             border-color: var(--accent);
         }
-
-        /* Hero Image Section - 写真表示対応 */
         .hero-image {
             margin-bottom: 1.5rem;
             border-radius: 1.5rem;
@@ -125,7 +117,6 @@
             object-fit: cover;
             aspect-ratio: 16 / 9;
         }
-        /* 画像がない場合のフォールバック */
         .hero-image .no-image {
             background: linear-gradient(135deg, var(--accent), #ffb347);
             aspect-ratio: 16 / 9;
@@ -137,8 +128,6 @@
             text-align: center;
             padding: 1rem;
         }
-
-        /* Cards */
         .card {
             background: var(--card-bg);
             border-radius: 1.5rem;
@@ -162,8 +151,6 @@
             font-weight: 600;
             color: var(--accent);
         }
-
-        /* Topic Buttons (Image Style) */
         .topic-grid {
             display: flex;
             flex-direction: column;
@@ -215,8 +202,6 @@
             font-size: 1.2rem;
             color: var(--accent);
         }
-
-        /* Sponsor styles */
         .sponsor {
             background: var(--sponsor-bg);
             border: 1px dashed var(--border);
@@ -240,8 +225,6 @@
             align-items: center;
             justify-content: center;
         }
-
-        /* Stats Badge */
         .stats {
             display: flex;
             gap: 1rem;
@@ -260,7 +243,6 @@
             font-size: 1.2rem;
             color: var(--accent);
         }
-
         footer {
             text-align: center;
             margin-top: 2rem;
@@ -272,6 +254,11 @@
         a {
             color: var(--accent);
             text-decoration: none;
+        }
+        .install-btn {
+            background: var(--accent);
+            color: #1e1e2f;
+            margin-top: 0.5rem;
         }
         @media (max-width: 480px) {
             .container {
@@ -301,25 +288,21 @@
                     <button data-lang="zh" class="lang-btn">中文</button>
                 </div>
                 <button id="themeToggle" aria-label="Toggle dark/light mode">🌓</button>
+                <button id="clearCacheBtn" aria-label="Clear cache and reload">🗑️</button>
             </div>
         </div>
 
-        <!-- 写真表示エリア（ヘッダー直下） -->
         <div class="hero-image" id="heroImage">
-            <!-- 画像ファイル名は実際に合わせて変更してください -->
             <img src="punch-hero.jpg" alt="Punch-kun with his plushie" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'no-image\'><span>🐵🧸<br>Photo of Punch-kun<br>(Image to be added)</span></div>';">
         </div>
 
-        <!-- スポンサー枠: メイン上部 -->
         <div class="sponsor" id="sponsor-top-main">
             <div class="sponsor-label">Sponsor</div>
             <div class="sponsor-placeholder">[ 広告スペース ]</div>
         </div>
 
-        <!-- 動的コンテンツ -->
         <div id="app-content"></div>
 
-        <!-- スポンサー枠: メイン下部 -->
         <div class="sponsor" id="sponsor-bottom-main">
             <div class="sponsor-label">Sponsor</div>
             <div class="sponsor-placeholder">[ 広告スペース ]</div>
@@ -327,11 +310,12 @@
 
         <footer>
             <p>© Ichikawa Zoo | <a href="https://www.city.ichikawa.lg.jp/zoo/" target="_blank">Official Website</a> | #HangInTherePunch</p>
+            <button id="installButton" class="install-btn" style="display: none;">📲 Install App</button>
         </footer>
     </div>
 
     <script>
-        // ==================== 多言語テキスト（パンチくん情報） ====================
+        // ==================== 多言語テキスト（前回と同じ） ====================
         const translations = {
             en: {
                 zooLocation: "Zoo Location",
@@ -430,7 +414,9 @@
 
         let currentLang = 'en';
         let isDark = true;
+        let deferredPrompt;
 
+        // テーマ切替
         function setTheme(theme) {
             if (theme === 'light') {
                 document.body.classList.add('light');
@@ -446,6 +432,7 @@
             setTheme(isDark ? 'light' : 'dark');
         }
 
+        // 言語切替
         function setLanguage(lang) {
             currentLang = lang;
             localStorage.setItem('lang', lang);
@@ -455,6 +442,7 @@
             renderContent();
         }
 
+        // コンテンツ描画
         function renderContent() {
             const t = translations[currentLang];
             const container = document.getElementById('app-content');
@@ -466,12 +454,10 @@
                     <p>${t.locationAddr}</p>
                     <div class="info-row"><span class="info-label">🚆 ${t.access}</span><br>${t.accessDetail}</div>
                 </div>
-
                 <div class="card">
                     <h2>🗼 ${t.tokyoInfo}</h2>
                     <p>${t.tokyoDesc}</p>
                 </div>
-
                 <div class="card">
                     <h2>🦍 ${t.punchProfile}</h2>
                     <p>${t.profileText}</p>
@@ -482,15 +468,12 @@
                     </div>
                     <p style="font-size:0.85rem; margin-top:0.5rem;">✨ ${t.ikeaNote}</p>
                 </div>
-
                 <div class="card">
                     <h2>📖 ${t.topics}</h2>
-                    <!-- 詳細ページ上部スポンサー -->
                     <div class="sponsor" id="sponsor-top-detail">
                         <div class="sponsor-label">Sponsor</div>
                         <div class="sponsor-placeholder">[ 広告スペース ]</div>
                     </div>
-
                     <div class="topic-grid">
                         <a href="${t.topic1Link}" class="topic-btn" target="_blank" rel="noopener noreferrer">
                             <div class="topic-icon">🐣</div>
@@ -525,14 +508,11 @@
                             <div class="topic-arrow">→</div>
                         </a>
                     </div>
-
-                    <!-- 詳細ページ下部スポンサー -->
                     <div class="sponsor" id="sponsor-bottom-detail">
                         <div class="sponsor-label">Sponsor</div>
                         <div class="sponsor-placeholder">[ 広告スペース ]</div>
                     </div>
                 </div>
-
                 <div class="card">
                     <h2>🌐 ${t.officialSite}</h2>
                     <p>${t.otherInfo}</p>
@@ -541,21 +521,57 @@
             `;
         }
 
+        // キャッシュクリア機能
+        async function clearCacheAndReload() {
+            if ('serviceWorker' in navigator) {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for (let registration of registrations) {
+                    await registration.unregister();
+                }
+            }
+            if ('caches' in window) {
+                const keys = await caches.keys();
+                await Promise.all(keys.map(key => caches.delete(key)));
+            }
+            localStorage.clear(); // 必要に応じてコメントアウト可
+            window.location.reload(true);
+        }
+
+        // PWAインストールプロンプト
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const installBtn = document.getElementById('installButton');
+            if (installBtn) installBtn.style.display = 'block';
+        });
+
+        document.getElementById('installButton')?.addEventListener('click', async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to the install prompt: ${outcome}`);
+            deferredPrompt = null;
+            document.getElementById('installButton').style.display = 'none';
+        });
+
+        // 初期化
         function init() {
             const savedTheme = localStorage.getItem('theme');
             setTheme(savedTheme === 'light' ? 'light' : 'dark');
-            
             const savedLang = localStorage.getItem('lang');
             setLanguage(translations[savedLang] ? savedLang : 'en');
 
             document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('clearCacheBtn').addEventListener('click', clearCacheAndReload);
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
             });
         }
 
+        // Service Worker 登録（スコープ明示）
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
+            navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                .then(reg => console.log('SW registered with scope:', reg.scope))
                 .catch(err => console.log('SW registration failed:', err));
         }
 
