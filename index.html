@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Punch-kun | Ichikawa Zoo</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1e1e2f">
+    <meta name="description" content="All about Punch-kun, the famous gorilla at Ichikawa Zoo, featured in The New York Times.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        /* Light mode (clear) variables */
+        :root {
+            --bg-primary: #1e1e2f;
+            --bg-secondary: #2a2a3a;
+            --text-primary: #f0f0f0;
+            --text-secondary: #cccccc;
+            --accent: #ffb347;
+            --accent-hover: #ff9f1a;
+            --card-bg: #2a2a3a;
+            --border: #3a3a4a;
+            --shadow: rgba(0,0,0,0.3);
+            --sponsor-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        body.light {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #495057;
+            --accent: #e67e22;
+            --accent-hover: #d35400;
+            --card-bg: #ffffff;
+            --border: #dee2e6;
+            --shadow: rgba(0,0,0,0.05);
+            --sponsor-bg: rgba(0, 0, 0, 0.02);
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        .title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--accent), #ff8c42);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+        button {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: var(--accent);
+            color: #1e1e2f;
+            border-color: var(--accent);
+        }
+        .lang-buttons {
+            display: flex;
+            gap: 0.3rem;
+        }
+        .lang-btn.active {
+            background: var(--accent);
+            color: #1e1e2f;
+            border-color: var(--accent);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 1px solid var(--border);
+        }
+        .card h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--accent);
+        }
+        .card h3 {
+            font-size: 1.2rem;
+            margin: 0.8rem 0 0.4rem 0;
+            color: var(--accent);
+        }
+        .info-row {
+            margin: 0.6rem 0;
+        }
+        .info-label {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .topic-list {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+        .topic-list li {
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .topic-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .topic-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0.2rem 0 0.5rem 0;
+        }
+        .btn-link {
+            display: inline-block;
+            background: var(--accent);
+            color: #1e1e2f;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 0.3rem;
+        }
+        .btn-link:hover {
+            background: var(--accent-hover);
+        }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+        }
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #1e1e2f;
+            font-size: 0.7rem;
+            border-radius: 1rem;
+            padding: 0.2rem 0.6rem;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+        /* Sponsor styles */
+        .sponsor {
+            background: var(--sponsor-bg);
+            border: 1px dashed var(--border);
+            border-radius: 1rem;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .sponsor-label {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        .sponsor-placeholder {
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.8rem;
+            }
+            .title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">🐵 Punch-kun</div>
+            <div class="controls">
+                <div class="lang-buttons">
+                    <button data-lang="en" class="lang-btn active">EN</button>
+                    <button data-lang="ja" class="lang-btn">日本語</button>
+                    <button data-lang="zh" class="lang-btn">中文</button>
+                </div>
+                <button id="themeToggle" aria-label="Toggle dark/light mode">🌓</button>
+            </div>
+        </div>
+
+        <!-- スポンサー枠: メイン上部 -->
+        <div class="sponsor" id="sponsor-top-main">
+            <div class="sponsor-label">Sponsor</div>
+            <div class="sponsor-placeholder">[ 広告スペース ]</div>
+        </div>
+
+        <!-- 動的コンテンツ挿入エリア -->
+        <div id="app-content"></div>
+
+        <!-- スポンサー枠: メイン下部 -->
+        <div class="sponsor" id="sponsor-bottom-main">
+            <div class="sponsor-label">Sponsor</div>
+            <div class="sponsor-placeholder">[ 広告スペース ]</div>
+        </div>
+
+        <footer>
+            <p>© Ichikawa Zoo | <a href="https://www.city.ichikawa.lg.jp/zoo/" target="_blank" rel="noopener noreferrer">Official Website</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // ==================== 多言語テキスト ====================
+        const translations = {
+            en: {
+                zooLocation: "Zoo Location",
+                locationAddr: "Ichikawa Zoo, 3-1-2 Yawata, Ichikawa-shi, Chiba 272-0021, Japan",
+                access: "Access",
+                accessDetail: "From Tokyo Station: JR Sobu Line Rapid (15 min) to Ichikawa Station, then 10 min walk. Also from Shinjuku/Shibuya via JR lines.",
+                tokyoInfo: "Tokyo Essentials",
+                tokyoDesc: "Tokyo is just 20-30 minutes away. Enjoy shopping, cuisine, and culture. The zoo is easily accessible from central Tokyo.",
+                punchProfile: "About Punch-kun",
+                profileText: "Punch-kun is a male Western lowland gorilla born in 1996. He became internationally famous after The New York Times featured his gentle personality and the zoo's unique enrichment activities.",
+                topics: "Topics & Details",
+                topic1Title: "Punch-kun's Daily Life",
+                topic1Desc: "Learn about his favorite foods, daily routines, and how the keepers care for him.",
+                topic1Link: "https://www.city.ichikawa.lg.jp/zoo/guide/punch.html",
+                topic2Title: "Keeper's Message",
+                topic2Desc: "Read heartfelt messages from the zoo staff who work closely with Punch-kun.",
+                topic2Link: "https://www.city.ichikawa.lg.jp/zoo/news/",
+                topic3Title: "Enrichment Activities",
+                topic3Desc: "Discover the special toys and activities that keep Punch-kun mentally stimulated.",
+                topic3Link: "https://www.city.ichikawa.lg.jp/zoo/enrichment/",
+                topic4Title: "Visit Tips",
+                topic4Desc: "Best times to see Punch-kun active, feeding times, and zoo etiquette.",
+                topic4Link: "https://www.city.ichikawa.lg.jp/zoo/visit/",
+                moreInfo: "More Details",
+                officialSite: "Official Zoo Website",
+                otherInfo: "Ichikawa Zoo is home to over 50 species. Punch-kun is the star, but you'll also meet red pandas, penguins, and more."
+            },
+            ja: {
+                zooLocation: "動物園の場所",
+                locationAddr: "市川動物園 〒272-0021 千葉県市川市八幡3-1-2",
+                access: "アクセス",
+                accessDetail: "東京駅からJR総武線快速で約15分、市川駅下車徒歩10分。新宿・渋谷からもJR線でアクセス便利。",
+                tokyoInfo: "東京情報",
+                tokyoDesc: "都心から20～30分。ショッピングやグルメ、文化を楽しんだ後、動物園へ気軽に立ち寄れます。",
+                punchProfile: "パンチくんについて",
+                profileText: "パンチくんは1996年生まれのニシローランドゴリラのオス。ニューヨークタイムズでその穏やかな性格と飼育員の取り組みが紹介され、世界的に注目されました。",
+                topics: "トピック＆詳細",
+                topic1Title: "パンチくんの1日",
+                topic1Desc: "好きな食べ物、毎日のスケジュール、飼育員によるケアについて詳しく紹介。",
+                topic1Link: "https://www.city.ichikawa.lg.jp/zoo/guide/punch.html",
+                topic2Title: "飼育員からのメッセージ",
+                topic2Desc: "パンチくんと日々接する飼育員の温かいメッセージを公開。",
+                topic2Link: "https://www.city.ichikawa.lg.jp/zoo/news/",
+                topic3Title: "環境エンリッチメント",
+                topic3Desc: "パンチくんの知性を刺激する特別なおもちゃや活動をご紹介。",
+                topic3Link: "https://www.city.ichikawa.lg.jp/zoo/enrichment/",
+                topic4Title: "見学のコツ",
+                topic4Desc: "活発に動く時間帯、給餌時間、マナーなど。",
+                topic4Link: "https://www.city.ichikawa.lg.jp/zoo/visit/",
+                moreInfo: "詳しく見る",
+                officialSite: "公式ホームページ",
+                otherInfo: "市川動物園には50種以上の動物がいます。パンチくんがスターですが、レッサーパンダやペンギンにも会えます。"
+            },
+            zh: {
+                zooLocation: "动物园位置",
+                locationAddr: "市川动物园 〒272-0021 日本千叶县市川市八幡3-1-2",
+                access: "交通信息",
+                accessDetail: "从东京站乘坐JR总武线快速约15分钟，在市川站下车步行10分钟。从新宿、涩谷乘坐JR线也很方便。",
+                tokyoInfo: "东京简介",
+                tokyoDesc: "距离东京市中心仅20-30分钟。购物、美食、文化之后，轻松前往动物园。",
+                punchProfile: "关于Punch君",
+                profileText: "Punch君是一只1996年出生的西部低地大猩猩雄性。因《纽约时报》介绍了其温和的性格和饲养员的努力而受到全球关注。",
+                topics: "专题与详情",
+                topic1Title: "Punch君的日常生活",
+                topic1Desc: "了解他喜欢的食物、日常作息以及饲养员的照顾方式。",
+                topic1Link: "https://www.city.ichikawa.lg.jp/zoo/guide/punch.html",
+                topic2Title: "饲养员寄语",
+                topic2Desc: "阅读与Punch君朝夕相处的饲养员的真挚寄语。",
+                topic2Link: "https://www.city.ichikawa.lg.jp/zoo/news/",
+                topic3Title: "环境丰富化活动",
+                topic3Desc: "介绍刺激Punch君智力的特殊玩具和活动。",
+                topic3Link: "https://www.city.ichikawa.lg.jp/zoo/enrichment/",
+                topic4Title: "参观小贴士",
+                topic4Desc: "Punch君最活跃的时间、喂食时间以及参观礼仪。",
+                topic4Link: "https://www.city.ichikawa.lg.jp/zoo/visit/",
+                moreInfo: "了解更多",
+                officialSite: "官方网站",
+                otherInfo: "市川动物园拥有50多种动物。Punch君是明星，但您还可以看到小熊猫、企鹅等。"
+            }
+        };
+
+        let currentLang = 'en';
+        let isDark = true; // default dark mode
+
+        // テーマ切り替え
+        function setTheme(theme) {
+            if (theme === 'light') {
+                document.body.classList.add('light');
+                isDark = false;
+            } else {
+                document.body.classList.remove('light');
+                isDark = true;
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            if (isDark) {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+        }
+
+        // 言語切り替え
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            renderContent();
+        }
+
+        // コンテンツ描画（スポンサー枠も含む）
+        function renderContent() {
+            const t = translations[currentLang];
+            const container = document.getElementById('app-content');
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="card">
+                    <h2>📍 ${t.zooLocation}</h2>
+                    <p>${t.locationAddr}</p>
+                    <div class="info-row"><span class="info-label">🚆 ${t.access}</span><br>${t.accessDetail}</div>
+                </div>
+
+                <div class="card">
+                    <h2>🗼 ${t.tokyoInfo}</h2>
+                    <p>${t.tokyoDesc}</p>
+                </div>
+
+                <div class="card">
+                    <h2>🦍 ${t.punchProfile}</h2>
+                    <p>${t.profileText}</p>
+                </div>
+
+                <div class="card">
+                    <h2>📌 ${t.topics}</h2>
+                    <!-- 詳細ページ上部のスポンサー枠 -->
+                    <div class="sponsor" id="sponsor-top-detail">
+                        <div class="sponsor-label">Sponsor</div>
+                        <div class="sponsor-placeholder">[ 広告スペース ]</div>
+                    </div>
+
+                    <ul class="topic-list">
+                        <li>
+                            <div class="topic-title">${t.topic1Title}</div>
+                            <div class="topic-desc">${t.topic1Desc}</div>
+                            <a href="${t.topic1Link}" class="btn-link" target="_blank" rel="noopener noreferrer">${t.moreInfo} →</a>
+                        </li>
+                        <li>
+                            <div class="topic-title">${t.topic2Title}</div>
+                            <div class="topic-desc">${t.topic2Desc}</div>
+                            <a href="${t.topic2Link}" class="btn-link" target="_blank" rel="noopener noreferrer">${t.moreInfo} →</a>
+                        </li>
+                        <li>
+                            <div class="topic-title">${t.topic3Title}</div>
+                            <div class="topic-desc">${t.topic3Desc}</div>
+                            <a href="${t.topic3Link}" class="btn-link" target="_blank" rel="noopener noreferrer">${t.moreInfo} →</a>
+                        </li>
+                        <li>
+                            <div class="topic-title">${t.topic4Title}</div>
+                            <div class="topic-desc">${t.topic4Desc}</div>
+                            <a href="${t.topic4Link}" class="btn-link" target="_blank" rel="noopener noreferrer">${t.moreInfo} →</a>
+                        </li>
+                    </ul>
+
+                    <!-- 詳細ページ下部のスポンサー枠 -->
+                    <div class="sponsor" id="sponsor-bottom-detail">
+                        <div class="sponsor-label">Sponsor</div>
+                        <div class="sponsor-placeholder">[ 広告スペース ]</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>🌐 ${t.officialSite}</h2>
+                    <p>${t.otherInfo}</p>
+                    <p><a href="https://www.city.ichikawa.lg.jp/zoo/" target="_blank" rel="noopener noreferrer">https://www.city.ichikawa.lg.jp/zoo/</a></p>
+                </div>
+            `;
+        }
+
+        // 初期化
+        function init() {
+            // テーマ
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+            // 言語
+            const savedLang = localStorage.getItem('lang');
+            if (savedLang && translations[savedLang]) {
+                setLanguage(savedLang);
+            } else {
+                setLanguage('en');
+            }
+            // イベントリスナー
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    setLanguage(btn.dataset.lang);
+                });
+            });
+        }
+
+        // PWA Service Worker 登録
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('SW registered:', reg))
+                .catch(err => console.log('SW registration failed:', err));
+        }
+
+        init();
+    </script>
+</body>
+</html>

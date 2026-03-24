@@ -1,0 +1,6 @@
+/
+├── index.html          # メインHTML
+├── manifest.json       # PWAマニフェスト
+├── sw.js               # Service Worker
+├── icon-192.png        # 192x192アイコン（ご用意ください）
+└── icon-512.png        # 512x512アイコン（ご用意ください）
